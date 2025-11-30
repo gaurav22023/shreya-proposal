@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be Mine?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ffb3ba, #ffdfba);
+            color: #d63384;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: all 1s ease;
+        }
+        .container {
+            max-width: 600px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 2s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        .name {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #ff1493;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        #yes {
+            background: #ff69b4;
+            color: white;
+        }
+        #yes:hover {
+            background: #ff1493;
+            animation: shake 0.5s;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        #no {
+            background: #ffb3ba;
+            color: #d63384;
+            position: absolute;
+        }
+        #no:hover {
+            animation: moveNo 0.5s ease-in-out;
+        }
+        @keyframes moveNo {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(calc(100vw * (random() - 0.5)), calc(100vh * (random() - 0.5))); }
+        }
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .heart {
+            position: absolute;
+            color: #ff69b4;
+            font-size: 2em;
+            animation: float 6s linear infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+        /* Romantic Animation Overlay */
+        .romantic-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ffb3ba, #ffdfba);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            overflow: hidden;
+        }
+        .romantic-overlay.active {
+            display: flex;
+        }
+        .big-heart {
+            font-size: 10em;
+            color: #ff1493;
+            animation: growHeart 2s ease-in-out;
+        }
+        @keyframes growHeart {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .love-message {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3em;
+            color: #d63384;
+            margin-top: 20px;
+            animation: fadeInText 3s ease-in 1s both;
+        }
+        @keyframes fadeInText {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .confetti {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ff69b4;
+            border-radius: 50%;
+            animation: fall 5s linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5em;
+            cursor: pointer;
+            display: none;
+        }
+        .romantic-overlay.active .close-btn {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts">
+        <div class="heart" style="left: 10%; animation-delay: 0s;">❤️</div>
+        <div class="heart" style="left: 20%; animation-delay: 1s;">💖</div>
+        <div class="heart" style="left: 30%; animation-delay: 2s;">💕</div>
+        <div class="heart" style="left: 40%; animation-delay: 3s;">❤️</div>
+        <div class="heart" style="left: 50%; animation-delay: 4s;">💖</div>
+        <div class="heart" style="left: 60%; animation-delay: 5s;">💕</div>
+        <div class="heart" style="left: 70%; animation-delay: 6s;">❤️</div>
+        <div class="heart" style="left: 80%; animation-delay: 7s;">💖</div>
+        <div class="heart" style="left: 90%; animation-delay: 8s;">💕</div>
+    </div>
+    <div class="container">
+        <h1>Will You Be My Girlfriend?</h1>
+        <p>My Dearest <span class="name">Shreya</span>,<br>
+        You've been my best friend, my confidant, and the light of my days. I can't imagine my life without you. Will you take this leap with me and make me the happiest person ever?</p>
+        <div class="buttons">
+            <button id="yes" onclick="showRomanticAnimation()">Yes!</button>
+            <button id="no" onmouseover="moveNo()">No</button>
+        </div>
+    </div>
+    <div class="romantic-overlay" id="romanticOverlay">
+        <button class="close-btn" onclick="closeAnimation()">×</button>
+        <div class="big-heart">💖</div>
+        <div class="love-message">I Love You, Shreya! Forever and Always 💕</div>
+        <div class="confetti" id="confettiContainer"></div>
+    </div>
+    <script>
+        function moveNo() {
+            const noButton = document.getElementById('no');
+            const maxX = window.innerWidth - noButton.offsetWidth;
+            const maxY = window.innerHeight - noButton.offsetHeight;
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            noButton.style.left = randomX + 'px';
+            noButton.style.top = randomY + 'px';
+        }
+
+        function showRomanticAnimation() {
+            // Hide the main container
+            document.querySelector('.container').style.display = 'none';
+            // Show the romantic overlay
+            const overlay = document.getElementById('romanticOverlay');
+            overlay.classList.add('active');
+            // Generate confetti
+            const confettiContainer = document.getElementById('confettiContainer');
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti-piece');
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.animationDelay = Math.random() * 5 + 's';
+                confettiContainer.appendChild(confetti);
+            }
+        }
+
+        function closeAnimation() {
+            // Hide the overlay and show the main container again
+            const overlay = document.getElementById('romanticOverlay');
+            overlay.classList.remove('active');
+            document.querySelector('.container').style.display = 'block';
+            // Clear confetti
+            document.getElementById('confettiContainer').innerHTML = '';
+        }
+    </script>
+</body>
+</html>
